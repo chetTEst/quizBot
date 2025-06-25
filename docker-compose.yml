@@ -1,0 +1,22 @@
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_APP=app
+    volumes:
+      - ./backend/app:/app/app
+  redis:
+    image: redis:6
+    ports:
+      - "6379:6379"
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: quiz
+      POSTGRES_PASSWORD: quiz
+      POSTGRES_DB: quiz
+    ports:
+      - "5432:5432"
