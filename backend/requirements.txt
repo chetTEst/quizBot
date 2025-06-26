@@ -3,3 +3,6 @@ Flask-SocketIO
 SQLAlchemy
 psycopg2-binary
 redis
+Flask-Migrate
+pytest
+pytest-cov
