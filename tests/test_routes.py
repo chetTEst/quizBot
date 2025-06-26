@@ -58,3 +58,11 @@ def test_choice_crud(client):
     res = client.delete(f'/api/choices/{choice_id}')
     assert res.status_code == 200
 
+
+def test_join_requires_name(client):
+    qid = create_quiz(client)
+    quiz = Quiz.query.get(qid)
+    res = client.post(f'/join/{quiz.short_code}', json={})
+    assert res.status_code == 400
+    assert 'error' in res.get_json()
+

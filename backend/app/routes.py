@@ -15,7 +15,10 @@ def _generate_short_code(length=6):
 
 @bp.route('/join/<short_code>', methods=['POST'])
 def join(short_code):
-    name = request.json.get('name')
+    data = request.get_json() or {}
+    name = data.get('name')
+    if not name:
+        return jsonify({'error': 'name is required'}), 400
     quiz = Quiz.query.filter_by(short_code=short_code).first_or_404()
     participant = Participant(name=name, quiz=quiz)
     db.session.add(participant)
